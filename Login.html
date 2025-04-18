@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Code Genie</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e2f;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signin-container {
+            background: #282a36;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+        }
+        .signin-container h1 {
+            margin-bottom: 20px;
+            color: #50fa7b;
+        }
+        .signin-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .signin-container button {
+            width: 100%;
+            padding: 12px;
+            background: #50fa7b;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .signin-container button:hover {
+            background: #45e67a;
+        }
+        .signin-container p {
+            margin-top: 10px;
+        }
+        .signin-container a {
+            color: #50fa7b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <h1>Login In</h1>
+        <form id="signin-form">
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="signin.html">Sign Up</a></p>
+    </div>
+    <script>
+        document.getElementById("signin-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Sign-in successful! Feature coming soon.");
+        });
+    </script>
+</body>
+</html>

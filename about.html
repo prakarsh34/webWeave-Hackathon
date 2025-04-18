@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Code Genie</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0f0d;
+      color: #f1faee;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1d1f21;
+      padding: 16px 40px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #00f5d4;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar ul li a {
+      color: #f1faee;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #00f5d4;
+      transform: scale(1.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
+      color: #00f5d4;
+      margin: 60px 0 30px;
+      text-shadow: 2px 2px 20px #00f5d4;
+    }
+
+    .about-section {
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      padding: 40px;
+      background-color: #1d3557;
+      border-radius: 16px;
+      border: 1px solid #00f5d440;
+      box-shadow: 0 0 20px #00f5d4, 0 0 40px #00f5d410, 0 0 60px #00f5d410;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .about-section:hover {
+      box-shadow: 0 0 25px #00f5d4, 0 0 60px #00f5d4, 0 0 80px #00f5d4;
+    }
+
+    .about-section p {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 245, 212, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-section {
+        padding: 20px;
+        margin: 0 20px 40px;
+      }
+
+      .about-section p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Code Genie</div>
+    <ul>
+      <li><a href="html.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="contactus.html">Contact Us</a></li>
+      <li><a href="signup.html">Sign up</a></li>
+      <li><a href="Login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <!-- Heading -->
+  <h1>About Code Genie</h1>
+
+  <!-- About Content -->
+  <div class="about-section">
+    <p>
+      Welcome to <strong>Code Genie</strong>! We’re an online platform helping young coders master coding through interactive content, challenges, and quizzes. Learn at your own pace and build real-world skills with us! Whether you're just starting out or leveling up your skills, our tools and community are here to support your journey every step of the way.
+    </p>
+  </div>
+
+</body>
+</html>

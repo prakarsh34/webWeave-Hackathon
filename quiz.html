@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code Genie | Coding Quiz</title>
+
+  <!-- Linking the quiz.css file -->
+  <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Code Genie</div>
+    <nav>
+      <a href="html.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="features.html">Features</a>
+      <a href="quiz.html" class="active">Quiz</a>
+      <a href="contactus.html">Contact us</a>
+    </nav>
+  </header>
+
+  <!-- Quiz Section -->
+  <main id="quiz-container">
+    <section class="quiz-box">
+      <h2 id="question">Loading question...</h2>
+      <textarea id="code-answer" placeholder="Write your answer here..."></textarea>
+      <button id="submit-answer">Submit Answer</button>
+      <p id="feedback"></p>
+    </section>
+
+    <section id="progress">
+      <p>Question <span id="current">0</span> of <span id="total">0</span></p>
+      <p>Time Left: <span id="time-left">60</span> seconds</p>
+      <!-- Progress bar -->
+      <div id="progress-bar">
+        <div id="progress-bar-fill" style="height: 10px; background-color: #4CAF50; width: 0%; transition: width 0.3s;"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Quiz Completion -->
+  <section id="recommendations" class="hidden">
+    <h2>🎉 Quiz Completed!</h2>
+    <p id="summary"></p>
+    <ul id="recommendation-list"></ul>
+    <button onclick="location.reload()">Restart Quiz</button>
+  </section>
+
+  <!-- Script at the end for proper loading -->
+  <script src="js/script.js"></script>
+</body>
+</html>
