@@ -4,9 +4,172 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Code Genie | Coding Quiz</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
 
-  <!-- Linking the quiz.css file -->
-  <link rel="stylesheet" href="quiz.css">
+    .navbar {
+      background-color: #1e1e2f;
+      color: white;
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar .logo {
+      font-size: 1.7em;
+      font-weight: bold;
+      color: #00c896;
+    }
+
+    .navbar nav a {
+      margin: 0 1em;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar nav a:hover {
+      color: #00c896;
+    }
+
+    .navbar nav a.active {
+      border-bottom: 2px solid #00c896;
+    }
+
+    .quiz-box {
+      background: white;
+      max-width: 800px;
+      margin: 2em auto;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    #question {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1em;
+      font-family: "Courier New", monospace;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 1em;
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      background-color: #00c896;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #00a67e;
+    }
+
+    #feedback {
+      margin-top: 1em;
+      font-weight: bold;
+      color: #ff5252;
+    }
+
+    #feedback.correct {
+      color: #00b894;
+    }
+
+    #progress {
+      max-width: 800px;
+      margin: 1em auto;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    #progress-bar {
+      height: 12px;
+      background: #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 0.5em;
+    }
+
+    #progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #00c896;
+      transition: width 0.3s ease-in-out;
+    }
+
+    #recommendations {
+      max-width: 700px;
+      margin: 3em auto;
+      text-align: center;
+      background-color: white;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    #recommendation-list {
+      text-align: left;
+      margin-top: 1em;
+    }
+
+    #recommendation-list li {
+      margin: 0.5em 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .center-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 2em;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .navbar nav a {
+        display: inline-block;
+        margin: 0.5em;
+      }
+
+      .quiz-box,
+      #progress,
+      #recommendations {
+        margin: 1em;
+        padding: 1em;
+      }
+
+      textarea {
+        font-size: 0.9em;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -16,7 +179,6 @@
     <nav>
       <a href="html.html">Home</a>
       <a href="about.html">About</a>
-      <a href="features.html">Features</a>
       <a href="quiz.html" class="active">Quiz</a>
       <a href="contactus.html">Contact us</a>
     </nav>
@@ -34,9 +196,8 @@
     <section id="progress">
       <p>Question <span id="current">0</span> of <span id="total">0</span></p>
       <p>Time Left: <span id="time-left">60</span> seconds</p>
-      <!-- Progress bar -->
       <div id="progress-bar">
-        <div id="progress-bar-fill" style="height: 10px; background-color: #4CAF50; width: 0%; transition: width 0.3s;"></div>
+        <div id="progress-bar-fill"></div>
       </div>
     </section>
   </main>
@@ -46,10 +207,165 @@
     <h2>🎉 Quiz Completed!</h2>
     <p id="summary"></p>
     <ul id="recommendation-list"></ul>
-    <button onclick="location.reload()">Restart Quiz</button>
+    <div class="center-btn">
+      <button onclick="location.href='progress.html'">Check Your Performance</button>
+    </div>
   </section>
 
-  <!-- Script at the end for proper loading -->
-  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const questions = [
+        {
+          question: "1. Write a function that returns the sum of two numbers.",
+          answer: `function sum(a, b) {\n  return a + b;\n}`
+        },
+        {
+          question: "2. Write a function to check if a number is even.",
+          answer: `function isEven(num) {\n  return num % 2 === 0;\n}`
+        },
+        {
+          question: "3. Write a function to reverse a string.",
+          answer: `function reverseString(str) {\n  return str.split('').reverse().join('');\n}`
+        },
+        {
+          question: "4. Write a function that returns the factorial of a number.",
+          answer: `function factorial(n) {\n  if (n === 0) return 1;\n  return n * factorial(n - 1);\n}`
+        },
+        {
+          question: "5. Write a function to check if a string is a palindrome.",
+          answer: `function isPalindrome(str) {\n  return str === str.split('').reverse().join('');\n}`
+        },
+        {
+          question: "6. Write a function that finds the maximum number in an array.",
+          answer: `function findMax(arr) {\n  return Math.max(...arr);\n}`
+        },
+        {
+          question: "7. Write a function that filters out odd numbers from an array.",
+          answer: `function filterOdds(arr) {\n  return arr.filter(n => n % 2 === 0);\n}`
+        },
+        {
+          question: "8. Write a function to count vowels in a string.",
+          answer: `function countVowels(str) {\n  return str.split('').filter(c => 'aeiouAEIOU'.includes(c)).length;\n}`
+        }
+      ];
+
+      let currentQuestionIndex = 0;
+      const totalQuestions = questions.length;
+      let score = 0;
+      let timeLeft = 60;
+      let timerInterval;
+
+      const questionEl = document.getElementById("question");
+      const answerBox = document.getElementById("code-answer");
+      const submitBtn = document.getElementById("submit-answer");
+      const feedbackEl = document.getElementById("feedback");
+      const currentEl = document.getElementById("current");
+      const totalEl = document.getElementById("total");
+      const summaryEl = document.getElementById("summary");
+      const recommendationSection = document.getElementById("recommendations");
+      const recommendationList = document.getElementById("recommendation-list");
+      const timeDisplay = document.getElementById("time-left");
+
+      function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        questionEl.textContent = q.question;
+        answerBox.value = "";
+        feedbackEl.textContent = "";
+        currentEl.textContent = currentQuestionIndex + 1;
+        totalEl.textContent = totalQuestions;
+
+        const progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+        document.getElementById("progress-bar-fill").style.width = `${progressPercent}%`;
+      }
+
+      function checkAnswer() {
+        const userRaw = answerBox.value.trim();
+        if (userRaw === "") {
+          feedbackEl.textContent = "Warning! Please enter an answer before submitting.";
+          return;
+        }
+
+        const userAnswer = userRaw.replace(/\s/g, "");
+        const correctAnswer = questions[currentQuestionIndex].answer.trim().replace(/\s/g, "");
+
+        if (userAnswer === correctAnswer) {
+          score++;
+          feedbackEl.textContent = "Wow, Correct!";
+          feedbackEl.classList.add("correct");
+        } else {
+          feedbackEl.innerHTML = `Not quite. Here's the correct answer:<br><pre>${questions[currentQuestionIndex].answer}</pre>`;
+          feedbackEl.classList.remove("correct");
+        }
+
+        setTimeout(() => {
+          currentQuestionIndex++;
+          if (currentQuestionIndex < totalQuestions) {
+            loadQuestion();
+          } else {
+            clearInterval(timerInterval);
+            showRecommendations();
+          }
+        }, 1500);
+      }
+
+      function showRecommendations() {
+        localStorage.setItem("quizScore", score);
+        localStorage.setItem("quizTotal", totalQuestions);
+        document.getElementById("quiz-container").style.display = "none";
+        recommendationSection.classList.remove("hidden");
+        document.getElementById("progress-bar-fill").style.width = `100%`;
+        summaryEl.innerHTML = `
+          🎉 You got ${score} out of ${totalQuestions} correct.<br>
+          Keep practicing these topics:
+        `;
+        recommendationList.innerHTML = `
+          <li>Functions & Parameters</li>
+          <li>Conditionals (if/else)</li>
+          <li>Loops & Recursion</li>
+          <li>String & Array Methods</li>
+        `;
+      }
+
+      function endQuizOnTimeout() {
+        localStorage.setItem("quizScore", score);
+        localStorage.setItem("quizTotal", totalQuestions);
+        document.getElementById("quiz-container").style.display = "none";
+        recommendationSection.classList.remove("hidden");
+        document.getElementById("progress-bar-fill").style.width = `100%`;
+        summaryEl.innerHTML = `
+          Oops! Time's up!<br>
+          You answered ${currentQuestionIndex} out of ${totalQuestions} questions.<br>
+          Try again to improve your timing and accuracy!
+        `;
+        recommendationList.innerHTML = `
+          <li>Practice faster coding</li>
+          <li>Understand question patterns</li>
+          <li>Keep calm under pressure</li>
+        `;
+      }
+
+      function startTimer() {
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          timeDisplay.textContent = timeLeft;
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            endQuizOnTimeout();
+          }
+        }, 1000);
+      }
+
+      submitBtn.addEventListener("click", checkAnswer);
+      answerBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          submitBtn.click();
+        }
+      });
+
+      loadQuestion();
+      startTimer();
+    });
+  </script>
 </body>
 </html>

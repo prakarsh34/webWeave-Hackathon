@@ -67,8 +67,7 @@ const recommendationSection = document.getElementById("recommendations");
 const recommendationList = document.getElementById("recommendation-list");
 const timeDisplay = document.getElementById("time-left");
 
-function loadQuestion() 
-{
+function loadQuestion() {
   const q = questions[currentQuestionIndex];
   questionEl.textContent = q.question;
   answerBox.value = "";
@@ -80,11 +79,9 @@ function loadQuestion()
   document.getElementById("progress-bar-fill").style.width = `${progressPercent}%`;
 }
 
-function checkAnswer() 
-{
+function checkAnswer() {
   const userRaw = answerBox.value.trim();
-  if (userRaw === "") 
-  {
+  if (userRaw === "") {
     feedbackEl.textContent = "Warning! Please enter an answer before submitting.";
     return;
   }
@@ -92,34 +89,27 @@ function checkAnswer()
   const userAnswer = userRaw.replace(/\s/g, "");
   const correctAnswer = questions[currentQuestionIndex].answer.trim().replace(/\s/g, "");
 
-  if (userAnswer === correctAnswer) 
-  {
+  if (userAnswer === correctAnswer) {
     score++;
     feedbackEl.textContent = "Wow, Correct!";
-  }
-  else 
-  {
+  } else {
     feedbackEl.innerHTML = `
       Not quite. Here's the correct answer:<br><pre>${questions[currentQuestionIndex].answer}</pre>
     `;
   }
 
-  setTimeout(() => 
-  {
+  setTimeout(() => {
     currentQuestionIndex++;
-    if (currentQuestionIndex < totalQuestions) 
-    {
+    if (currentQuestionIndex < totalQuestions) {
       loadQuestion();
-    } else 
-    {
+    } else {
       clearInterval(timerInterval);
       showRecommendations();
     }
   }, 1500);
 }
 
-function showRecommendations() 
-{
+function showRecommendations() {
   document.getElementById("quiz-container").style.display = "none";
   recommendationSection.classList.remove("hidden");
   document.getElementById("progress-bar-fill").style.width = `100%`;
@@ -133,10 +123,13 @@ function showRecommendations()
     <li>Loops & Recursion</li>
     <li>String & Array Methods</li>
   `;
+
+  // Store score and total questions in localStorage for progress page
+  localStorage.setItem("quizScore", score);
+  localStorage.setItem("quizTotal", totalQuestions);
 }
 
-function endQuizOnTimeout() 
-{
+function endQuizOnTimeout() {
   document.getElementById("quiz-container").style.display = "none";
   recommendationSection.classList.remove("hidden");
   document.getElementById("progress-bar-fill").style.width = `100%`;
@@ -150,17 +143,18 @@ function endQuizOnTimeout()
     <li>Understand question patterns</li>
     <li>Keep calm under pressure</li>
   `;
+
+  // Store score and total questions in localStorage for progress page
+  localStorage.setItem("quizScore", currentQuestionIndex);
+  localStorage.setItem("quizTotal", totalQuestions);
 }
 
-function startTimer() 
-{
-  timerInterval = setInterval(() => 
-  {
+function startTimer() {
+  timerInterval = setInterval(() => {
     timeLeft--;
     timeDisplay.textContent = timeLeft;
 
-    if (timeLeft <= 0) 
-    {
+    if (timeLeft <= 0) {
       clearInterval(timerInterval);
       endQuizOnTimeout();
     }
@@ -169,10 +163,8 @@ function startTimer()
 
 submitBtn.addEventListener("click", checkAnswer);
 
-answerBox.addEventListener("keydown", (e) => 
-{
-  if (e.key === "Enter" && !e.shiftKey) 
-  {
+answerBox.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
     submitBtn.click();
   }

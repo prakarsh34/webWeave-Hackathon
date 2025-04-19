@@ -1,11 +1,10 @@
 const chatContainer = document.querySelector(".chat-container");
 const userInput = document.querySelector("#user-input");
 
-// OpenAI API details (Replace with your key)
+// OpenAI API details (Replace with your key on the server-side, not exposed here)
 const API_URL = "https://api.openai.com/v1/chat/completions";
-const API_KEY = "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";
 
-
+// Function to send user message to OpenAI API and receive the response
 async function sendMessage() {
     let userMessage = userInput.value.trim(); // Get the user input and trim spaces
 
@@ -20,7 +19,7 @@ async function sendMessage() {
 
     // Prepare API request
     let requestBody = {
-        model: "gpt-3.5-turbo", // Change to "gpt-4" if needed
+        model: "gpt-3.5-turbo", // You can switch this to "gpt-4" if needed
         messages: [{ role: "user", content: userMessage }],
         max_tokens: 100
     };
@@ -30,7 +29,7 @@ async function sendMessage() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${API_KEY}`
+                // Authorization: Bearer <API_KEY> should be handled server-side, not in the client
             },
             body: JSON.stringify(requestBody)
         });
